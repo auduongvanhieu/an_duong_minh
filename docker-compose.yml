@@ -13,44 +13,44 @@ services:
   #   volumes:
   #     - mongodb_adm_host:/data/db
 
-  web_server:
+  # web_server:
+  #   image: node:14.20.0
+  #   container_name: web_server
+  #   restart: always
+  #   ports:
+  #     - 8888:8888
+  #   build: ./WebServer
+  #   working_dir: /app
+  #   volumes:
+  #     - ./WebServer:/app
+  #     - /app/node_modules
+  #   command: sh -c "npm install && npm run start"
+
+  web_admin:
     image: node:14.20.0
-    container_name: web_server
+    container_name: web_admin
     restart: always
     ports:
-      - 8888:8888
-    build: ./WebServer
+      - 3000:3000
+    build: ./WebAdmin
     working_dir: /app
     volumes:
-      - ./WebServer:/app
+      - ./WebAdmin:/app
       - /app/node_modules
     command: sh -c "npm install && npm run start"
 
-  # web_admin:
-  #   image: node:14.20.0
-  #   container_name: web_admin
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   build: ./WebAdmin
-  #   working_dir: /app
-  #   volumes:
-  #     - ./WebAdmin:/app
-  #     - /app/node_modules
-  #   command: sh -c "npm install && npm run start"
-
-  # web_client:
-  #   image: node:14.20.0
-  #   container_name: web_client
-  #   restart: always
-  #   ports:
-  #     - 3001:3001
-  #   build: ./WebClient
-  #   working_dir: /app
-  #   volumes:
-  #     - ./WebClient:/app
-  #     - /app/node_modules
-  #   command: sh -c "npm install && npm run start"
+  web_client:
+    image: node:14.20.0
+    container_name: web_client
+    restart: always
+    ports:
+      - 3001:3001
+    build: ./WebClient
+    working_dir: /app
+    volumes:
+      - ./WebClient:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run start"
 
 volumes:
   mongodb_adm_host:
