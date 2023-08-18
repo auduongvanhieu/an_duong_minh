@@ -1,0 +1,39 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon --inspect src/index.js",
+		"watch": "node-sass --watch src/resources/scss/ --output src/public/assets/css/",
+		"format": "prettier --single-quote --trailing-comma all --tab-width 4 --write \"src/**/*.{js,json,scss,html,php,pug,hbs,ejs}\"",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt-nodejs": "^0.0.3",
+		"body-parser": "^1.20.0",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
+		"express-handlebars": "^5.2.0",
+		"formidable": "^2.0.1",
+		"helmet": "^5.1.0",
+		"jsonwebtoken": "^8.5.1",
+		"method-override": "^3.0.0",
+		"moment": "^2.29.4",
+		"mongoose": "^6.4.0",
+		"mongoose-delete": "^0.5.4",
+		"mongoose-slug-generator": "^1.0.4",
+		"mongoose-slug-updater": "^3.3.0",
+		"multer": "^1.4.5-lts.1",
+		"nodemailer": "^6.7.7",
+		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"node-sass": "^7.0.1",
+		"nodemon": "^2.0.19"
+	}
+}

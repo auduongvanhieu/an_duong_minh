@@ -1,0 +1,79 @@
+@import 'normalize.css';
+:root {
+    --primary: #fe2c55;
+    --blacck: #000;
+    --white: #fff;
+    --defaultl-layout-header-height: 60px;
+    --defaultl-layout-width: 1150px;
+    --textcolor: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: 'ProximaNova', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    color: var(--textcolor);
+}
+input,
+button,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+a[href] {
+    color: var(--textcolor);
+    text-decoration: none;
+}
+
+//  fonts emmbedd
+@font-face {
+    font-family: ProximaNova;
+    src: url('/assets/fonts/Proxima-Nova-Bold.woff');
+    font-weight: 700;
+}
+@font-face {
+    font-family: ProximaNova;
+    src: url('/assets/fonts/Proxima-Nova-Regular (2).woff2');
+    font-weight: 400;
+}
+@font-face {
+    font-family: ProximaNova;
+    src: url('/assets/fonts/Proxima-Nova-Semibold (1).woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: SofiaPro;
+    src: url('/assets/fonts/Proxima-Nova-Semibold (1).woff2');
+    font-weight: 700;
+}
+
+// cutom tippy tootip
+body {
+    .tippy-box {
+        background-color: rgba(84, 84, 84, 0.92);
+        border-radius: 8px;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        font-weight: 600;
+        color: rgb(255, 255, 255);
+    }
+    .tippy-arrow {
+        color: rgba(84, 84, 84, 0.92);
+    }
+    .tippy-content {
+        padding: 8px 9px;
+    }
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+        top: -8px;
+    }
+}

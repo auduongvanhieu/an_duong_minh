@@ -1,0 +1,31 @@
+version: "2.0"
+
+services:
+  # mongodb_adm_host:
+  #   image: mongo:latest
+  #   container_name: mongodb_adm_host
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
+  #     MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
+  #     MONGO_INITDB_DATABASE: "${MONGO_DB_NAME}"
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb_adm_host:/data/db
+
+  web_server:
+    image: node:14.20.0
+    container_name: web_server
+    restart: always
+    ports:
+      - 4001:4001
+    build: ./WebServer
+    working_dir: /app
+    volumes:
+      - ./WebServer:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run start"
+
+volumes:
+  mongodb_adm_host:
+    driver: local

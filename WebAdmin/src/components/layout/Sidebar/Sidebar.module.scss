@@ -1,0 +1,26 @@
+.wrapper {
+    position: relative;
+    width: 280px;
+    background-color: #f7fafc;
+    box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+    .dashboard {
+        display: flex;
+        align-items: center;
+        color: #333;
+        background: #e0f3ff;
+        border-radius: 4px;
+        width: 232px;
+        height: 32px;
+        position: absolute;
+        top: 20px;
+        left: 24px;
+        .icon {
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+        .title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+    }
+}

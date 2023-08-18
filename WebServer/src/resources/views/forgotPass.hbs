@@ -1,0 +1,43 @@
+
+<img class="wave" src="assets/images/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="assets/images/bg.svg">
+    </div>
+    <div class="login-content">
+        <form action="/forgot-pass" name="forgot" method="POST">
+        <input type="hidden" name="ip" value="" id="ip">
+            <img src="assets/images/avatar.svg">
+            <!-- <h2 class="title">Welcome</h2> -->
+            {{#if message}}
+                <div class="alert alert-danger mt-3" role="alert">{{message}}</div>
+            {{/if}}
+            {{#if success}}
+                <div class="alert alert-success mt-3" role="alert">{{success}}</div>
+            {{/if}}
+            <div class="input-div one">
+                <div class="i">
+                        <i class="fas fa-envelope"></i>
+                </div>
+                <div class="div">
+                    <p>Địa chỉ Email</p>
+                    <input type="email" class="input" name="email" {{#if values.email }} value="{{values.email}}" {{/if}} required>
+                </div>
+            </div>
+            <a href="/login">Đăng nhập</a>
+            <input type="submit" class="btn" value="Khôi phục mật khẩu">
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.title = 'Quên mật khẩu'
+        document.forms.forgot.email.focus()
+        fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data=>{
+            let ip = document.getElementById('ip')
+            ip.value = data.ip
+        });
+    })
+</script>

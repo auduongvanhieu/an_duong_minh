@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "~": "./src",
+          "~LO": "./src/components/Layout",
+          "~COM": "./src/components"
+        }
+      }
+    ]
+  ]
+}

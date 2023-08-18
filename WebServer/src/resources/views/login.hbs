@@ -1,0 +1,57 @@
+
+<img class="wave" src="assets/images/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="assets/images/bg.svg">
+    </div>
+    <div class="login-content">
+        <form action="/login" method="POST">
+        <input type="hidden" name="ip" value="" id="ip">
+            <img src="assets/images/avatar.svg">
+            <!-- <h2 class="title">Welcome</h2> -->
+            {{#if messages}}
+                <div class="alert alert-danger mt-3" role="alert">{{messages}}</div>
+            {{/if}}
+            <div class="input-div one">
+                <div class="i">
+                        <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                        <p>Tên đăng nhập</p>
+                        <input type="text" class="input" name="username" {{#if values.username }} value="{{values.username}}" {{/if}} required>
+                </div>
+                </div>
+                <div class="input-div pass">
+                <div class="i">
+                        <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                        <p>Mật khẩu</p>
+                        <input type="password" class="input" name="password" {{#if values.password }} value="{{values.password}}" {{/if}}  required>
+                </div>
+            </div>
+            <div class="toggle-group">
+                <input type="checkbox" name="on-off-switch" id="on-off-switch" checked="" tabindex="1">
+                <label for="on-off-switch">Lưu đăng nhập</label>
+                <div class="onoffswitch pull-right" aria-hidden="true">
+                    <div class="onoffswitch-label">
+                        <div class="onoffswitch-inner"></div>
+                        <div class="onoffswitch-switch"></div>
+                    </div>
+                </div>
+            </div>
+            <a href="/forgot-pass">Quên mật khẩu?</a>
+            <input type="submit" class="btn" value="Đăng nhập">
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data=>{
+            let ip = document.getElementById('ip')
+            ip.value = data.ip
+        });
+    })
+</script>

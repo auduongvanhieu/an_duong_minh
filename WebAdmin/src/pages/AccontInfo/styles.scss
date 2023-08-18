@@ -1,0 +1,111 @@
+.mainAccoun {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    flex-direction: column;
+
+    .headerBox {
+        padding: 10px;
+        background-color: rgba(234, 245, 227, 0.596);
+        display: flex;
+        flex-direction: row;
+        border-radius: 8px;
+        box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+        .heading {
+            color: #333;
+        }
+        .inputModal {
+            margin: 10px;
+        }
+        .btnModal {
+            padding-top: 20px;
+        }
+        .MuiFormControl-fullWidth {
+            margin: 16px 0;
+        }
+    }
+    .mainBox {
+        margin-top: 20px;
+        width: 80%;
+        height: 100%;
+        background-color: #f7fafc;
+        border-radius: 8px;
+        box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+
+        .boxInput {
+            display: flex;
+            justify-content: center;
+            .textinput {
+                width: 100%;
+                margin: 10px 20px;
+            }
+        }
+        .boxInputt {
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgb(215, 219, 215);
+            .textinput {
+                width: 300px;
+                margin: 10px 20px;
+            }
+        }
+        .boxInputtt {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgb(215, 219, 215);
+            .textinput {
+                margin: 40px 0;
+                width: 30%;
+            }
+        }
+        .inputAddress {
+            position: relative;
+            top: 16px;
+            left: 88px;
+            width: 80%;
+        }
+        .avatarcss {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .btnSave {
+    }
+    .heardingInput {
+        color: rgb(211, 206, 206);
+        font-weight: 400;
+        position: relative;
+        top: 14px;
+        left: 14px;
+        .aboutMeInput {
+            position: relative;
+            top: 30px;
+            left: 70px;
+            width: 80%;
+            height: 140px;
+        }
+    }
+    .mainContent {
+        text-align: center;
+        width: 200px;
+    }
+    .boxInput {
+        padding-top: 20px;
+
+        justify-content: space-between;
+    }
+    .buttonDefault {
+        margin-right: 10px;
+        background-color: rgb(194, 194, 194);
+        svg {
+            margin-right: 7px;
+        }
+    }
+    .MuiTypography-h6 {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #ccc;
+    }
+}

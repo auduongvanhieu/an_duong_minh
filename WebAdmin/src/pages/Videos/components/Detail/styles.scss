@@ -1,0 +1,62 @@
+.popper {
+  width: 70%;
+  transition: 0.3s;
+  height: 100vh;
+  .paper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .headerdd {
+      background-color: rgb(243, 243, 243);
+      border-bottom: solid 1px gray;
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      .action {
+      }
+      .title {
+        width: 0;
+        flex: auto;
+      }
+      .buttonDefault {
+        margin-right: 5px !important;
+        background-color: rgb(194, 194, 194);
+        width: max-content;
+        svg {
+          margin-right: 7px;
+        }
+      }
+    }
+    .content{
+      flex: auto;
+      height: 0;
+      overflow: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      .infomation{
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      }
+      .videopart{
+        height: 0;
+        flex: auto;
+        overflow: auto;
+      }
+      .auth{
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+.fullScreen {
+  width: 100% !important;
+}
+.fsaf {
+  color: rgb(211, 211, 211);
+}
+.fsadfasdfaf {
+  color: rgb(146, 0, 0);
+}

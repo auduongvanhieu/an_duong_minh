@@ -1,0 +1,56 @@
+
+<img class="wave" src="/assets/images/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="/assets/images/bg.svg">
+    </div>
+    <div class="login-content">
+        <form action="./?user={{user}}&ref={{ref}}" name="reset" method="POST">
+        <input type="hidden" name="ip" value="" id="ip">
+            <img src="/assets/images/avatar.svg">
+            <!-- <h2 class="title">Welcome</h2> -->
+            {{#if message}}
+                <div class="alert alert-danger mt-3" role="alert">{{message}}</div>
+            {{/if}}
+            {{#if success}}
+                <div class="alert alert-success mt-3" role="alert">{{success}}</div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(()=>window.location.href="/login", 3000)
+                    })
+                </script>
+            {{/if}}
+            <div class="input-div one">
+                <div class="i">
+                        <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <p>Mật khẩu mới</p>
+                    <input type="password" class="input" name="newpass" {{#if values.newpass }} value="{{values.newpass}}" {{/if}} required>
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                        <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <p>Xác nhận mật khẩu</p>
+                    <input type="password" class="input" name="confirmPass" {{#if values.confirmPass }} value="{{values.confirmPass}}" {{/if}} required>
+                </div>
+            </div>
+            <a href="/login">Đăng nhập</a>
+            <input type="submit" class="btn" value="Đổi mật khẩu">
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.title = 'Khôi phục mật khẩu'
+        fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data=>{
+            let ip = document.getElementById('ip')
+            ip.value = data.ip
+        });
+    })
+</script>
