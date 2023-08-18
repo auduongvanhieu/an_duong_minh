@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GetVideoResult, Settings } from "./type";
-const API_URL = process.env.REACT_APP_API_URL;;
+const API_URL = "http://45.117.179.80:8888";
 export const getInfo = (slug: string) => {
   return axios.get<GetVideoResult>(`${API_URL}/video/${slug}`).then((res) => res.data);
   return new Promise<GetVideoResult>((resolve) => {
