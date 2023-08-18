@@ -9,6 +9,6 @@ router.get('/current', userController.showUserCurrent)
 router.get('/:user', userController.showUser)
 router.put('/:user', userController.updateUser)
 router.delete('/', userController.deleteUser)
-router.post('/', userController.createUser)
+router.post('/', AuthMiddleWare.isAdmin, userController.createUser)
 
 module.exports = router
