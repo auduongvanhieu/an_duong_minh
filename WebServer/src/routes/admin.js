@@ -1,5 +1,5 @@
 const router = require('express').Router(),
-	adminController = require('../app/controllers/AdminController')
+	adminController = require('./src/app/controllers/AdminController')
 
 router.get('/', adminController.index)
 
