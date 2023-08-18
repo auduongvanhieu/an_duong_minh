@@ -1,6 +1,6 @@
 const router = require('express').Router(),
 	siteController = require('../app/controllers/SiteController'),
-	MaxSize = +process.env.MAX_FILE_SIZE_UPLOAD,
+	MaxSize = process.env.MAX_FILE_SIZE_UPLOAD,
 	multer = require('multer'),
 	storage = multer.diskStorage({
 		destination: function (req, file, cb) {
