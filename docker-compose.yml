@@ -2,7 +2,7 @@ version: "2.0"
 
 services:
   mongodb_adm_host:
-    image: mongo:latest
+    image: mongo:5.0
     container_name: mongodb_adm_host
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
