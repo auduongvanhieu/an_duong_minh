@@ -59,7 +59,7 @@ const route = (app) => {
 	app.use(Globals.globalVariables)
 	app.use('/admin', LogedIn.isLogedIn, AuthMiddleWare.isAuth, adminRouter)
 	app.use('/video', videoRouter)
-	app.use('/user', AuthMiddleWare.isAuth, userRouter)
+	app.use('/user', userRouter)
 	app.use('/', siteRouter)
 	app.use((req, res) => {
 		res.status(404).json({
