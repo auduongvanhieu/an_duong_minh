@@ -264,7 +264,7 @@ class SiteControllers {
 						res.status(200).json({
 							success: true,
 							message: 'Upload image successfully',
-							data: `${req.protocol}://${process.env.REACT_APP_API_URL}/uploads/${result.fileName}`,
+							data: `${process.env.REACT_APP_API_URL}/uploads/${result.fileName}`,
 						})
 				} else {
 					res.status(403).json({
