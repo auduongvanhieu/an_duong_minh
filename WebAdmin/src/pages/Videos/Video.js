@@ -200,7 +200,7 @@ const Videos = ({ children }) => {
 						<SearchBox onChange={handleChange} />
 					</Box>
 					<Box>
-						{currentUser?.role === 'admin' && (
+						{(
 							<Button
 								onClick={handleAddNewVideo}
 								className={cx('buttonDefault')}

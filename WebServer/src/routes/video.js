@@ -10,6 +10,6 @@ router.get('/:slug', videoController.showVideo)
 router.put('/:slug', AuthMiddleWare.isAuth, ConditionsMiddleware.checkStamp, videoController.updateVideo)
 router.delete('/', videoController.deleteVideo)
 // router.post('/', AuthMiddleWare.isAdmin, videoController.createVideo)
-router.post('/', videoController.createVideo)
+router.post('/', AuthMiddleWare.isAuth, videoController.createVideo)
 
 module.exports = router

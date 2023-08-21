@@ -228,6 +228,10 @@ class VideoControllers {
 	// POST: /video
 	async createVideo(req, res) {
 		try {
+			const curUser = await User.findById(req.jwtDecoded.data._id);
+			curUser.role !== 'admin'
+				? (req.body.access = [req.jwtDecoded.data._id])
+				: req.body.access;
 			let parts = req.body.parts && req.body.parts
 			req.body.parts = []
 			let resultVideo = await Video.create(req.body)
