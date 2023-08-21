@@ -4,7 +4,7 @@ const router = require('express').Router(),
 
 router.put('/changepassword/:user', userController.changePassword)
 router.get('/set-allow', userController.updateActive)
-router.get('/list', AuthMiddleWare.isAdmin, userController.listUser)
+router.get('/list', userController.listUser)
 router.get('/current', userController.showUserCurrent)
 router.get('/:user', userController.showUser)
 router.put('/:user', userController.updateUser)
