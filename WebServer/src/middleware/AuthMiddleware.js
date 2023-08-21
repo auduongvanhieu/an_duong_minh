@@ -57,7 +57,7 @@ const isAdmin = async (req, res, next) => {
 					if (user.role === 'admin') {
 						next()
 					} else {
-						return res.status(403).json({
+						return res.status(401).json({
 							success: false,
 							message: 'Access is denied!',
 						})
@@ -65,7 +65,7 @@ const isAdmin = async (req, res, next) => {
 					}
 				} else {
 					return res
-						.status(403)
+						.status(401)
 						.json({ success: false, message: 'Access is denied!' })
 					return res.redirect('/')
 				}
