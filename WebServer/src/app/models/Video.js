@@ -1,13 +1,13 @@
 const mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	mongooseDelete = require('mongoose-delete'),
-	slug = require('mongoose-slug-updater'),
+	// slug = require('mongoose-slug-updater'),
 	VideoSchema = new Schema(
 		{
 			title: String,
 			slug: {
 				type: String,
-				slug: 'title',
+				// slug: 'title',
 				unique: true,
 				sparse: true,
 			},
@@ -56,7 +56,7 @@ const mongoose = require('mongoose'),
 		}
 	)
 
-mongoose.plugin(slug)
+// mongoose.plugin(slug)
 VideoSchema.plugin(mongooseDelete, {
 	deletedAt: true,
 	overrideMethods: 'all',

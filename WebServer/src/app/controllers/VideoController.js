@@ -234,6 +234,8 @@ class VideoControllers {
 				: req.body.access;
 			let parts = req.body.parts && req.body.parts
 			req.body.parts = []
+			const randomSlug = Math.floor(Math.random() * 10000);
+			req.body.slug = `${req.body.title}-${randomSlug}`;
 			let resultVideo = await Video.create(req.body)
 			if (resultVideo) {
 				if (parts && parts.length)
