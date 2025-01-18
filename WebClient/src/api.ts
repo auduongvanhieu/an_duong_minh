@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GetVideoResult, Settings } from "./type";
-const API_URL = "http://api-video-player.viwo.vn";
+const API_URL = "https://api-video-player.viwo.vn";
 export const getInfo = (slug: string) => {
   return axios.get<GetVideoResult>(`${API_URL}/video/${slug}`).then((res) => res.data);
   return new Promise<GetVideoResult>((resolve) => {
