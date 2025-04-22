@@ -1,18 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
+import { Settings } from "http2";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Navbar from "../components/Navbar";
+import { connect } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import YouTube, { YouTubeEvent, YouTubePlayer } from "react-youtube";
+import { createGlobalStyle } from 'styled-components';
+import { getInfo } from "../api";
+import Navbar from "../components/Navbar";
+import { appContext, IPlayer } from "../contexts/appContext";
 import Expand from "../icons/Expand";
 import UnExpand from "../icons/UnExpand";
-import { useSearchParams } from "react-router-dom";
-import { getFont, getInfo } from "../api";
-import { connect } from "react-redux";
-import { Banner, GetVideoResult, VideoPart } from "../type";
-import { Settings } from "http2";
 import { State } from "../store/reduxs";
-import { appContext, IPlayer } from "../contexts/appContext";
-import styled,{ createGlobalStyle } from 'styled-components'
+import { Banner, GetVideoResult, VideoPart } from "../type";
+
+declare global {
+  interface Window {
+    zaloJSV2: any;
+  }
+}
 
 const App2 = (props) => {
   const { handleVideoYoutubeId, handleCurrentPart, handleSeconds, handleMute, currentPart,
@@ -27,13 +33,20 @@ const App2 = (props) => {
   const [info, setInfo] = useState<GetVideoResult>();
   const [player, setPlayer] = useState<YouTubePlayer>({});
   const [searchParams] = useSearchParams();
-  const slug =slugHomepage || searchParams.get("slug");
-// useEffect(()=>{
-//   let j=setTimeout(() => {
-//     if(player)player.playVideo();
-//   }, 2000);
-//   return ()=>clearTimeout(j)
-// },[player])
+  const slug = slugHomepage || searchParams.get("slug");
+
+  useEffect(() => {
+    window.zaloJSV2 = {
+      zalo_h5_event_handler: function (eventId, eventName, eventData) { }
+    };
+  }, [])
+
+  // useEffect(()=>{
+  //   let j=setTimeout(() => {
+  //     if(player)player.playVideo();
+  //   }, 2000);
+  //   return ()=>clearTimeout(j)
+  // },[player])
   useEffect(() => {
     if (slug?.trim()) {
       getInfo(slug).then((data) => {
@@ -158,8 +171,8 @@ const App2 = (props) => {
     player,
     nextPart,
     info: info,
-    qualityChange:()=>{},
-    setQuality:()=>{}
+    qualityChange: () => { },
+    setQuality: () => { }
   };
 
   const onReady = (e: YouTubeEvent) => {
@@ -181,7 +194,7 @@ const App2 = (props) => {
   const onPlaybackQualityChange = (gg: YouTubeEvent) => {
     // console.log("CHANGE STATE CALL");
     let data = gg.data;
-    console.log('onPlaybackQualityChange: ',data);
+    console.log('onPlaybackQualityChange: ', data);
     //handleQualityChange(data);
   };
 
@@ -195,7 +208,7 @@ const App2 = (props) => {
       <appContext.Provider value={valueContext}>
         <FullScreen handle={screen} onChange={reportChange}>
           <GlobalStyle url={info?.data?.column7} color={info?.data?.column10} />
-          <div ref={divVideoWapperRef} style={{ width: "100%", height: "100%", background: "red"}}>
+          <div ref={divVideoWapperRef} style={{ width: "100%", height: "100%", background: "red" }}>
             <Navbar />
             <Box
               width={"100%"}
@@ -325,13 +338,13 @@ export default connect(mapStateToProps, mapdispatch)(App2);
 const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: customFont;
-  src: url('${props=>props.url}');
+  src: url('${props => props.url}');
   font-weight: bold;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: ${props=>props.color};    /* color of the scroll thumb */
+  background-color: ${props => props.color};    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid ${props=>props.color};  /* creates padding around scroll thumb */
+  border: 3px solid ${props => props.color};  /* creates padding around scroll thumb */
 }
 `
