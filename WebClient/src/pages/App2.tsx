@@ -36,9 +36,9 @@ const App2 = (props) => {
   const slug = slugHomepage || searchParams.get("slug");
 
   useEffect(() => {
-    window.zaloJSV2 = {
-      zalo_h5_event_handler: function (eventId, eventName, eventData) { }
-    };
+    // window.zaloJSV2 = {
+    //   zalo_h5_event_handler: function (eventId, eventName, eventData) { }
+    // };
   }, [])
 
   // useEffect(()=>{
