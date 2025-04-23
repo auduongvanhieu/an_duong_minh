@@ -237,7 +237,10 @@ class VideoControllers {
 			const randomSlug = Math.floor(Math.random() * 10000);
 			let name = req.body.title
 			const nameCleaned = name.replace(/\s/g, '-')
-			req.body.slug = `${nameCleaned}-${randomSlug}`;
+			req.body.slug = `${nameCleaned}`;
+			if (req.body.slug.length === 0) {
+				req.body.slug = `${randomSlug}`;
+			}
 			let resultVideo = await Video.create(req.body)
 			if (resultVideo) {
 				if (parts && parts.length)
