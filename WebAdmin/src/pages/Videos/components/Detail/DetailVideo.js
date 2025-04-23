@@ -586,7 +586,7 @@ const [fontError,setfontError]=useState(false)
                           onClick={() =>
                             handleCopy(
                               // HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
-                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/p/${detail.slug}`
+                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/s/${detail.slug}`
                             )
                           }
                           title="Coppy"
@@ -601,7 +601,7 @@ const [fontError,setfontError]=useState(false)
                             <Typography variant="span" style={{ color: "white" }}>
                               <FontAwesomeIcon icon={faLink} style={{ marginRight: 5 }} />
                               {/* {HOST_URL + (HASH_ROUTER ? "/#" : "")}/player?slug={detail.slug} */}
-                              {HOST_URL + (HASH_ROUTER ? "/#" : "")}/p/{detail.slug}
+                              {HOST_URL + (HASH_ROUTER ? "/#" : "")}/s/{detail.slug}
                             </Typography>
                           }
                         />
@@ -613,7 +613,7 @@ const [fontError,setfontError]=useState(false)
                             // setshowView(true);
                             window.open(
                               // HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
-                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/p/${detail.slug}`
+                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/s/${detail.slug}`
                             );
                           }}
                           title="View"
