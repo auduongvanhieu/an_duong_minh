@@ -3,7 +3,7 @@ import { Settings } from "http2";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { connect } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import YouTube, { YouTubeEvent, YouTubePlayer } from "react-youtube";
 import { createGlobalStyle } from 'styled-components';
 import { getInfo } from "../api";
@@ -33,7 +33,8 @@ const App2 = (props) => {
   const [info, setInfo] = useState<GetVideoResult>();
   const [player, setPlayer] = useState<YouTubePlayer>({});
   const [searchParams] = useSearchParams();
-  const slug = slugHomepage || searchParams.get("slug");
+  const pathParams = useParams();
+  const slug = slugHomepage || searchParams.get("slug") || pathParams.slug;
 
   useEffect(() => {
     window.zaloJSV2 = {
@@ -47,7 +48,9 @@ const App2 = (props) => {
   //   }, 2000);
   //   return ()=>clearTimeout(j)
   // },[player])
+  
   useEffect(() => {
+    console.log('slug', slug);
     if (slug?.trim()) {
       getInfo(slug).then((data) => {
         let videoId = data.data.parts[0].value;

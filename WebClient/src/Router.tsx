@@ -9,6 +9,7 @@ const MyAppRouter = () => {
       <BrowserRouter basename="">
         <Routes>
           <Route path="/player" element={<App2 />} />
+          <Route path="/v/:slug" element={<App2 />} />
           {/* <Route path="/video" element={<App />} /> */}
           <Route path="/*" element={<NotFound />} />
         </Routes>

@@ -585,7 +585,8 @@ const [fontError,setfontError]=useState(false)
                         <Chip
                           onClick={() =>
                             handleCopy(
-                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
+                              // HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
+                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/v/${detail.slug}`
                             )
                           }
                           title="Coppy"
@@ -599,7 +600,8 @@ const [fontError,setfontError]=useState(false)
                           label={
                             <Typography variant="span" style={{ color: "white" }}>
                               <FontAwesomeIcon icon={faLink} style={{ marginRight: 5 }} />
-                              {HOST_URL + (HASH_ROUTER ? "/#" : "")}/player?slug={detail.slug}
+                              {/* {HOST_URL + (HASH_ROUTER ? "/#" : "")}/player?slug={detail.slug} */}
+                              {HOST_URL + (HASH_ROUTER ? "/#" : "")}/v/{detail.slug}
                             </Typography>
                           }
                         />
@@ -610,7 +612,8 @@ const [fontError,setfontError]=useState(false)
                             // );
                             // setshowView(true);
                             window.open(
-                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
+                              // HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
+                              HOST_URL + (HASH_ROUTER ? "/#" : "") + `/v/${detail.slug}`
                             );
                           }}
                           title="View"
