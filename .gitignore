@@ -4,3 +4,4 @@
 .prettierignore
 **/.env
 **/.vscode
+uploads
