@@ -263,14 +263,13 @@ class SiteControllers {
 					if (result)
 						res.status(200).json({
 							success: true,
-							message: 'Upload image successfully',
-							// data: `${req.protocol}://${req.headers.host}/uploads/${result.fileName}`,
+							message: 'Tải lên file thành công',
 							data: `${process.env.REACT_APP_API_URL}/uploads/${result.fileName}`,
 						})
 				} else {
 					res.status(403).json({
 						success: false,
-						message: `File size too large, should be less than ${
+						message: `File quá lớn, bạn nên tải lên file nhỏ hơn ${
 							MaxSize / 1024 / 1024
 						}MB`,
 					})
