@@ -2,6 +2,7 @@ const siteRouter = require('./site'),
 	adminRouter = require('./admin'),
 	videoRouter = require('./video'),
 	userRouter = require('./user'),
+	mediaRouter = require('./media'),
 	AuthMiddleWare = require('../middleware/AuthMiddleware'),
 	LogedIn = require('../middleware/UserLogedMiddleware'),
 	Globals = require('../middleware/Global'),
@@ -61,6 +62,7 @@ const route = (app) => {
 	app.use('/video', videoRouter)
 	app.use('/user', AuthMiddleWare.isAuth, userRouter)
 	app.use('/', siteRouter)
+	app.use('/media', AuthMiddleWare.isAuth, mediaRouter)
 	app.use((req, res) => {
 		res.status(404).json({
 			success: false,
