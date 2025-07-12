@@ -72,7 +72,7 @@ function Media({ children }) {
 		setLoading(true)
 		let a = new FormData()
 		a.append('image', fileUpload)
-		fetch(`${API_URL}/media/upload`, { method: 'POST', body: a })
+		fetch(`${API_URL}/upload`, { method: 'POST', body: a })
 			.then(async (data) => {
 				let result = await data.json()
 				if (!result.success) {
@@ -212,6 +212,7 @@ function Media({ children }) {
 			>
 				<Paper style={styleModalUpload}>
 					<Typography variant="h5">Tải lên file</Typography>
+					<Typography variant="h7">(Tối đa 50MB)</Typography>
 					<Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
 						<input type='file' onChange={(e) => setFileUpload(e.target.files[0])} />
 						<Button color="primary" variant="contained" onClick={handeSaveUpload} style={{ marginTop: 10 }}> Lưu </Button>
