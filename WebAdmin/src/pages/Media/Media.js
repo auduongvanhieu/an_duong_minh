@@ -180,16 +180,16 @@ function Media({ children }) {
 										<TableCell align="center">
 											<img src={media.contentType.includes('image') ? media.url : images.video} style={{ width: '100px', height: '100px' }} />
 										</TableCell>
-										<TableCell component="th" scope="row">
+										<TableCell align="center">
 											{media.fileName}
 										</TableCell>
 										<TableCell align="center">
 											{(media.size / 1024 / 1024).toFixed(2)} MB
 										</TableCell>
-										<TableCell align="right">
+										<TableCell align="center">
 											<a href={media.url} target="_blank" rel="noopener noreferrer">{media.url.slice(0, 8)}...{media.url.slice(-10)}</a>
 										</TableCell>
-										<TableCell align="right">
+										<TableCell align="center">
 											{media.exist ? 'Có' : 'Không'}
 										</TableCell>
 										<TableCell align="center">
