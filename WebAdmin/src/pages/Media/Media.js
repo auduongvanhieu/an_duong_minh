@@ -97,7 +97,7 @@ function Media({ children }) {
 
 	return (
 		<>
-			<Box className={cx('mainMediaBox')}>
+			<Box className={cx('mainUserBox')}>
 				<Box
 					className={cx('headerBox')}
 					style={{ width: '100%', display: 'flex' }}
@@ -128,7 +128,7 @@ function Media({ children }) {
 					</Box>
 				</Box>
 				<Box className={cx('mainBox')}>
-					<TableContainer component={Paper}>
+					<TableContainer component={Paper} style={{ maxHeight: 'calc(100vh - 150px)' }}>
 						<Table sx={{ minWidth: 650 }} aria-label="simple table">
 							<TableHead>
 								<TableRow>
@@ -226,7 +226,7 @@ function Media({ children }) {
 				styles={{ zIndex: 1000 }}
 				open={showConfirmDelete}
 				onClose={() => setShowConfirmDelete(false)}
-				text="Bạn chắc chắn muốn xóa tài nguyên?"
+				text="Bạn chắc chắn muốn xóa tài nguyên đã chọn?"
 				title={'Xác nhận? '}
 				buttons={[
 					<Button
