@@ -1,122 +1,40 @@
-import classNames from "classnames/bind";
-import styles from "./styles.scss";
-import {
-  Box,
-  Typography,
-  Button,
-  Checkbox,
-  Slide,
-  Popper,
-  Grow,
-  IconButton,
-  Badge,
-  Chip,
-  Modal,
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
-import {
-  faTrashAlt,
-  faSave,
-  faExpand,
-  faCamera,
-  faVideo,
-  faEdit,
-  faAdd,
-  faChevronUp,
-  faChevronDown,
-  faTimes,
-  faCog,
-  faLink,
-  faCopy,
-  faCopyright,
-  faCut,
-  faClipboard,
-  faClipboardList,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faCog, faExpand, faEye, faLink, faSave, faTimes, faTrashAlt, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar, Box, Button, Checkbox, Chip, Grow, IconButton, List, ListItem, ListItemAvatar, ListItemText, Popper, Slide, Typography } from "@material-ui/core";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import classNames from "classnames/bind";
+import { ColorPicker, createColor } from "material-ui-color";
 import { useContext, useEffect, useRef, useState } from "react";
+import CustomDialog from "../../../../components/Confirm";
 import InputText from "../../../../components/Inputs/TextField";
-import Switch from "../../../../components/Inputs/Switch";
-import { secondsToTime } from "./ulti";
-import EditRow from "../EditRow";
-import SortPartButton from "../SortPartButton";
 import { API_URL, HASH_ROUTER, HOST_URL } from "../../../../configs";
 import { WidgetContext } from "../../../../context";
-import ListItemButton from "@material-ui/core/ListItemSecondaryAction";
-import CustomDialog from "../../../../components/Confirm";
 import { axiosApp, loginCheckWidthError } from "../../../../rest";
-import { ColorPicker, createColor } from "material-ui-color";
+import EditRow from "../EditRow";
+import SortPartButton from "../SortPartButton";
+import styles from "./styles.scss";
+import { secondsToTime } from "./ulti";
 
 const cx = classNames.bind(styles);
-// export function generateUUID() {
-//   // Public Domain/MIT
-//   var d = new Date().getTime(); //Timestamp
-//   var d2 = (typeof performance !== "undefined" && performance.now && performance.now() * 1000) || 0; //Time in microseconds since page-load or 0 if unsupported
-//   return "xxxxxxxxxxxxxxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-//     var r = Math.random() * 16; //random number between 0 and 16
-//     if (d > 0) {
-//       //Use timestamp until depleted
-//       r = (d + r) % 16 | 0;
-//       d = Math.floor(d / 16);
-//     } else {
-//       //Use microseconds since page-load if supported
-//       r = (d2 + r) % 16 | 0;
-//       d2 = Math.floor(d2 / 16);
-//     }
-//     return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-//   });
-// }
-function DetailVideo({
-  open,
-  setOpen,
-  detailVideo,
-  setIsLoading,
-  handleAddItemToRows,
-  handdleDeleteSuccess,
-  getlist
-}) {
-  const {
-    state: { users, currentUser },
-  } = useContext(WidgetContext);
-  const handleClickAway = () => {
-    setOpen(false);
-  };
-  console.log(currentUser);
+function DetailVideo({ open, setOpen, detailVideo, setIsLoading, handleAddItemToRows, handdleDeleteSuccess, getlist }) {
+  const { state: { users, currentUser }, } = useContext(WidgetContext);
+  const handleClickAway = () => { setOpen(false); };
   const [detail, setdetail] = useState(detailVideo);
   const [arrDeletePart, setarrDeletePart] = useState([]);
-  const [srcIframme, setsrcIframme] = useState("");
   const [fullscreen, setfullscreen] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-  const [showView, setshowView] = useState(false);
   const [openConfig, setopenConfig] = useState(false);
-  const [openPart, setopenPart] = useState(false);
   const [openEditorModal, setopenEditorModal] = useState(false);
   const [currentPart, setcurrentPart] = useState(null);
-  const [el, setEl] = useState();
-  const handleFullScreen = () => {
-    setfullscreen((f) => !f);
-  };
-  const handleClosePart = () => {
-    setopenPart((f) => !f);
-  };
-  const handleOpenPart = (e) => {
-    setcurrentPart(e);
-  };
+  const handleFullScreen = () => { setfullscreen((f) => !f); };
+  const handleOpenPart = (e) => { setcurrentPart(e); };
   const handleSaveRow = (row, field, value) => {
     row[field] = value;
     setdetail({ ...detail, parts: [...detail.parts] });
@@ -182,14 +100,13 @@ function DetailVideo({
     setdetail({ ...detail, parts: [...detail.parts.filter((item) => !arrNew.includes(item))] });
   };
   const handleUpdateVideo = () => {
-    console.log(detail);
     let payload = JSON.parse(JSON.stringify(detail));
-    payload.column3=column3.css.backgroundColor||'white'
-    payload.column4=column4.css.backgroundColor||'rgba(0,109,192,0.52)'
-    payload.column5=column5.css.backgroundColor||"#01A0C6"
-    payload.column6=column6.css.backgroundColor||'rgba(255,255,255,0.1)'
-    payload.column8=column8.css.backgroundColor||'#47daff46'
-    payload.column10=column9.css.backgroundColor||'#264e85'
+    payload.column3 = column3.css.backgroundColor || 'white'
+    payload.column4 = column4.css.backgroundColor || 'rgba(0,109,192,0.52)'
+    payload.column5 = column5.css.backgroundColor || "#01A0C6"
+    payload.column6 = column6.css.backgroundColor || 'rgba(255,255,255,0.1)'
+    payload.column8 = column8.css.backgroundColor || '#47daff46'
+    payload.column10 = column9.css.backgroundColor || '#264e85'
     delete payload.banners;
     delete payload.createdBy;
     delete payload.createdAt;
@@ -210,9 +127,9 @@ function DetailVideo({
           setIsLoading(false);
         })
         .catch((e) => {
-    setIsLoading(false);
+          setIsLoading(false);
           console.log(e)
-          if(!e.response.data.success){
+          if (!e.response.data.success) {
             setmessError(e.response.data.message)
             setshowError(true)
           }
@@ -237,50 +154,24 @@ function DetailVideo({
           setdetail(j);
         })
         .catch((e) => {
-    setIsLoading(false);
+          setIsLoading(false);
           console.log(e)
           loginCheckWidthError(e);
         });
     }
 
-    const reloadVideo=()=>{
+    const reloadVideo = () => {
       axiosApp
-			.get(`/video/${detail._id}`)
-			.then((data) => {
-				if (data.data.success) {
-					setdetail(data.data.data)
-				}
-			})
-			.catch((e) => {
-				loginCheckWidthError(e)
-			})
+        .get(`/video/${detail._id}`)
+        .then((data) => {
+          if (data.data.success) {
+            setdetail(data.data.data)
+          }
+        })
+        .catch((e) => {
+          loginCheckWidthError(e)
+        })
     }
-
-    // fetch(url, {
-    //   method: detail._id ? "PUT" : "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // 'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    //   body: JSON.stringify(payload),
-    // }).then(async (data) => {
-    //   let result = await data.json();
-    //   console.log(result);
-    //   setIsLoading(false);
-    //   if (!detail._id) {
-    //     let j = result.data;
-    //     handleAddItemToRows({
-    //       _id: j?._id,
-    //       title: j?.title,
-    //       remark: j?.remark,
-    //       isActive: j?.isActive,
-    //       createdAt: j?.createdAt,
-    //       createdBy: j?.access[0],
-    //       partsCount: j?.parts?.length,
-    //     });
-    //     setdetail(j)
-    //   }
-    // });
   };
   const checkBoxContent = (row, index) => (
     <Checkbox
@@ -304,7 +195,6 @@ function DetailVideo({
     handleSaveInfo("access", [...detail.access, user._id]);
   };
   const handleRemoveEditor = (user) => {
-    //àdsffffffffffffffffffffffffffffffffffffff
     if (currentUser?.role === "member") return;
     handleSaveInfo("access", [...detail.access.filter((f) => f !== user)]);
   };
@@ -337,37 +227,20 @@ function DetailVideo({
         .catch((e) => {
           loginCheckWidthError(e);
         });
-
-      // fetch(`${API_URL}/video`, {
-      //   method: "DELETE",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ videos: [detail._id] }),
-      // }).then(async (data) => {
-      //   let result = await data.json();
-      //   console.log(result);
-      //   if (result.success) {
-      //     setOpen(false);
-      //     handdleDeleteSuccess([detail._id]);
-      //   }
-      // });
     }
-    //api-spro.tb-web.site/video/{slug/id}
   };
-  //const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-  const [showError,setshowError]=useState(false)
-  const [messError,setmessError]=useState('')
-  useEffect(()=>{
-    if(detail._id){
-      axiosApp.get(`/video/stamp?video=${detail._id}`).then(({data:{data:{stamp}}})=>{
-        if(stamp){
-          handleSaveInfo('stamp',stamp)
+  const [showError, setshowError] = useState(false)
+  const [messError, setmessError] = useState('')
+  useEffect(() => {
+    if (detail._id) {
+      axiosApp.get(`/video/stamp?video=${detail._id}`).then(({ data: { data: { stamp } } }) => {
+        if (stamp) {
+          handleSaveInfo('stamp', stamp)
         }
       })
     }
-  },[])
-    
+  }, [])
+
   const [column3, setcolumn3] = useState(createColor(detail.column3));
   const [column4, setcolumn4] = useState(createColor(detail.column4));
   const [column5, setcolumn5] = useState(createColor(detail.column5));
@@ -379,31 +252,31 @@ function DetailVideo({
     e.stopPropagation()
     console.dir(fileRef.current);
     fileRef.current.click();
-};
+  };
 
-const [fontError,setfontError]=useState(false)
+  const [fontError, setfontError] = useState(false)
   const fileRef = useRef();
-  const handleUploadFont=(e)=>{
+  const handleUploadFont = (e) => {
     if (!e.target.files[0]) {
       return;
-  } else if (!e.target.files[0].name.endsWith('.ttf')&&!e.target.files[0].name.endsWith('.woff')) {
-    setfontError(true);
-  } else {
+    } else if (!e.target.files[0].name.endsWith('.ttf') && !e.target.files[0].name.endsWith('.woff')) {
+      setfontError(true);
+    } else {
       let a = new FormData();
       a.append('image', e.target.files[0]);
       fetch(`${API_URL}/upload`, { method: 'POST', body: a })
-          .then(async (data) => {
-              let result = await data.json();
-              if (!result.success)
-              setfontError(true);
-              else {
-                handleSaveInfo('column7',result.data);
-              }
-          })
-          .catch((error) => {
+        .then(async (data) => {
+          let result = await data.json();
+          if (!result.success)
             setfontError(true);
-          });
-  }
+          else {
+            handleSaveInfo('column7', result.data);
+          }
+        })
+        .catch((error) => {
+          setfontError(true);
+        });
+    }
   }
 
   return (
@@ -423,9 +296,6 @@ const [fontError,setfontError]=useState(false)
                       <Typography variant="h6">{detail.title}</Typography>
                     </Box>
                     <Box className={cx("action")}>
-                      {/* <Button variant="contained" className={cx("buttonDefault")}>
-                        <Switch label="Avtive" checked></Switch>
-                      </Button> */}
                       {currentUser?.role === "admin" && (
                         <Button
                           onClick={() => setShowConfirmDelete(true)}
@@ -490,7 +360,7 @@ const [fontError,setfontError]=useState(false)
                                   />
                                   Màu Title
                                 </Box>
-                                <Box display={"inline-block"}  p={1}>
+                                <Box display={"inline-block"} p={1}>
                                   <ColorPicker
                                     hideTextfield
                                     value={column4}
@@ -500,7 +370,7 @@ const [fontError,setfontError]=useState(false)
                                   />
                                   Nền Title
                                 </Box>
-                                <Box display={"inline-block"}  p={1}>
+                                <Box display={"inline-block"} p={1}>
                                   <ColorPicker
                                     hideTextfield
                                     value={column5}
@@ -541,18 +411,18 @@ const [fontError,setfontError]=useState(false)
                                   Màu thanh cuộn
                                 </Box>
 
-<Box display={'flex'} pt={3}>
-  <InputText
-  disabled
-  style={{ }}
-  value={detail.column7??""}
-  label="Link font chữ"
-  onChange={({ target: { value } }) =>
-    handleSaveInfo("column7", value)
-  }
-></InputText>
-<Button onClick={handleUpload} >Upload</Button>
-</Box>
+                                <Box display={'flex'} pt={3}>
+                                  <InputText
+                                    disabled
+                                    style={{}}
+                                    value={detail.column7 ?? ""}
+                                    label="Link font chữ"
+                                    onChange={({ target: { value } }) =>
+                                      handleSaveInfo("column7", value)
+                                    }
+                                  ></InputText>
+                                  <Button onClick={handleUpload} >Upload</Button>
+                                </Box>
                                 <InputText
                                   style={{ marginButtom: 10, marginTop: 60 }}
                                   value={detail.column1}
@@ -600,19 +470,13 @@ const [fontError,setfontError]=useState(false)
                           label={
                             <Typography variant="span" style={{ color: "white" }}>
                               <FontAwesomeIcon icon={faLink} style={{ marginRight: 5 }} />
-                              {/* {HOST_URL + (HASH_ROUTER ? "/#" : "")}/player?slug={detail.slug} */}
                               {HOST_URL + (HASH_ROUTER ? "/#" : "")}/s/{detail.slug}
                             </Typography>
                           }
                         />
                         <Chip
                           onClick={() => {
-                            // setsrcIframme(
-                            //   HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
-                            // );
-                            // setshowView(true);
                             window.open(
-                              // HOST_URL + (HASH_ROUTER ? "/#" : "") + `/player?slug=${detail.slug}`
                               HOST_URL + (HASH_ROUTER ? "/#" : "") + `/s/${detail.slug}`
                             );
                           }}
@@ -767,10 +631,9 @@ const [fontError,setfontError]=useState(false)
                                 <TableCell>#</TableCell>
                                 <TableCell>title</TableCell>
                                 <TableCell align="center">type</TableCell>
-                                <TableCell align="center">ID Video</TableCell>
+                                <TableCell align="center">ID Video/Url</TableCell>
                                 <TableCell align="center">thumbnail</TableCell>
                                 <TableCell align="center">Start</TableCell>
-                                {/* <TableCell align="center">End</TableCell> */}
                               </TableRow>
                             </TableHead>
                             <TableBody>
@@ -828,9 +691,6 @@ const [fontError,setfontError]=useState(false)
                                       <TableCell align="center">
                                         {secondsToTime(row.startSeconds)}
                                       </TableCell>
-                                      {/* <TableCell align="center">
-                                        {secondsToTime(row.endSeconds ?? 0)}
-                                      </TableCell> */}
                                     </TableRow>
                                   ) : (
                                     <EditRow
@@ -931,58 +791,19 @@ const [fontError,setfontError]=useState(false)
           >
             Cancel
           </Button>,
-          <Button onClick={()=>setfontError(false)}>OK</Button>,
+          <Button onClick={() => setfontError(false)}>OK</Button>,
         ]}
       />
-
-      {/* <Modal
-        open={showView}
-        onBackdropClick={() => setshowView(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-      <Paper style={style}>
-      <iframe
-      allowFullScreen
-        id="iframe"
-        src={srcIframme}
-        style={{left:0,width:'600px',height:'400px'}}
-      ></iframe>
-      </Paper>
-      </Modal> */}
-      {/* <Popper placement="right" open={openPart} onClose={handleClosePart}>
-        <Paper>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Paper>
-      </Popper> */}
       <input
-                onChange={handleUploadFont}
-                type="file"
-                name="image"
-                ref={fileRef}
-                style={{ display: 'none' }}
-                onClick={e=>e.stopPropagation()}
-            />
+        onChange={handleUploadFont}
+        type="file"
+        name="image"
+        ref={fileRef}
+        style={{ display: 'none' }}
+        onClick={e => e.stopPropagation()}
+      />
     </>
   );
 }
 
 export default DetailVideo;
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  padding: 50,
-};
