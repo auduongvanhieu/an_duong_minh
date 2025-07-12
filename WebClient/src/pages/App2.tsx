@@ -29,6 +29,7 @@ const App2 = (props) => {
   const [searchParams] = useSearchParams();
   const pathParams = useParams();
   const slug = slugHomepage || searchParams.get("slug") || pathParams.slug;
+  let videoPlayerRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     window.zaloJSV2 = {
@@ -83,6 +84,9 @@ const App2 = (props) => {
     if (isReady) {
       player?.playVideo?.();
       player?.seekTo?.(seconds);
+      if (videoPlayerRef.current) {
+        videoPlayerRef.current.currentTime = seconds;
+      }
     }
   }, [triggerPlay]);
 
@@ -158,7 +162,12 @@ const App2 = (props) => {
                   {videoYoutubeId.includes("drive.google.com") ?
                     <iframe src={videoYoutubeId} width="100%" height="100%" /> :
                     videoYoutubeId.includes("http") ?
-                      <video src={videoYoutubeId} width="100%" height="100%" controls /> :
+                      <video ref={videoPlayerRef} id="video-player" src={videoYoutubeId} width="100%" height="100%" controls onLoadedData={(e: any) => {
+                        console.log('video loaded', e);
+                        if (videoPlayerRef.current) {
+                          videoPlayerRef.current.currentTime = seconds;
+                        }
+                      }} /> :
                       <YouTube
                         id="youtube-player"
                         videoId={videoYoutubeId}
