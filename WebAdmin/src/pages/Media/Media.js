@@ -1,14 +1,15 @@
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, Button, Checkbox, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Box, Button, Checkbox, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import classNames from 'classnames/bind'
 import { useCallback, useEffect, useState } from 'react'
 import images from '../../../src/assets/images'
 import CustomDialog from '../../components/Confirm'
+import { API_URL } from '../../configs'
 import { timeConvert } from '../../helpers'
 import { axiosApp, loginCheckWidthError } from '../../rest'
-import styles from './styles.scss'
 import Loading from '../Loading'
+import styles from './styles.scss'
 
 const cx = classNames.bind(styles)
 
@@ -59,6 +60,41 @@ function Media({ children }) {
 		setrows([...rows])
 	}
 
+	const [openModalUpload, setOpenModalUpload] = useState(false)
+	const handleOpen = () => {
+		setOpenModalUpload(true)
+	}
+	const handleCloseUpload = () => {
+		setOpenModalUpload(false)
+	}
+	const [fileUpload, setFileUpload] = useState(null)
+	const handeSaveUpload = () => {
+		setLoading(true)
+		let a = new FormData()
+		a.append('image', fileUpload)
+		fetch(`${API_URL}/media/upload`, { method: 'POST', body: a })
+			.then(async (data) => {
+				let result = await data.json()
+				if (!result.success) {
+					handeShowModalMess('Lỗi upload file 1: ' + result.message)
+				} else {
+					getlist()
+					setOpenModalUpload(false)
+				}
+				setLoading(false)
+			})
+			.catch((error) => {
+				handeShowModalMess('Lỗi upload file 2: ' + error.message)
+				setLoading(false)
+			})
+	}
+
+	const [errorMessage, setErrorMessage] = useState('')
+	const handeShowModalMess = (mess) => {
+		setOpenModalUpload(false)
+		setErrorMessage(mess)
+	}
+
 	return (
 		<>
 			<Box className={cx('mainMediaBox')}>
@@ -76,9 +112,17 @@ function Media({ children }) {
 						<Button
 							className={cx('buttonDefault')}
 							color="primary"
+							onClick={handleOpen}
+						>
+							<FontAwesomeIcon icon={faUpload} style={{ marginRight: 2 }} />
+							Tải lên
+						</Button>
+						<Button
+							className={cx('buttonDefault')}
+							color="primary"
 							onClick={() => setShowConfirmDelete(true)}
 						>
-							<FontAwesomeIcon icon={faTrashAlt} />
+							<FontAwesomeIcon icon={faTrashAlt} style={{ marginRight: 2 }} />
 							XÓA
 						</Button>
 					</Box>
@@ -159,6 +203,22 @@ function Media({ children }) {
 				</Box>
 			</Box>
 			{loading && <Loading />}
+
+			<Modal
+				open={openModalUpload}
+				onClose={handleCloseUpload}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Paper style={styleModalUpload}>
+					<Typography variant="h5">Tải lên file</Typography>
+					<Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+						<input type='file' onChange={(e) => setFileUpload(e.target.files[0])} />
+						<Button color="primary" variant="contained" onClick={handeSaveUpload} style={{ marginTop: 10 }}> Lưu </Button>
+					</Box>
+				</Paper>
+			</Modal>
+
 			<CustomDialog
 				key={"delete-media"}
 				onClick={e => e.stopPropagation()}
@@ -179,8 +239,39 @@ function Media({ children }) {
 					<Button onClick={handleDelete}>Xóa</Button>,
 				]}
 			/>
+
+			<Modal
+				open={errorMessage !== ''}
+				onClose={() => setErrorMessage('')}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Paper style={styleModalUpload}>
+					<Typography variant="h5">{errorMessage}</Typography>
+				</Paper>
+			</Modal>
 		</>
 	)
 }
 
 export default Media
+
+const styleModalUpload = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+	padding: 50,
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	justifyContent: 'center',
+}
+const cssModalUpload = {
+	margin: '16px 0',
+}
