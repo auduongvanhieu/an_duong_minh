@@ -26,8 +26,8 @@ class SiteControllers {
 		}
 	}
 
-	// POST: /delete
-	async delete(req, res) {
+	// POST: /deletes
+	async deletes(req, res) {
 		try {
 			if (!req.body.ids) {
 				return res.status(400).json({
