@@ -81,8 +81,8 @@ const App2 = (props) => {
 
   useEffect(() => {
     if (isReady) {
-      player.playVideo();
-      player.seekTo(seconds);
+      player?.playVideo?.();
+      player?.seekTo?.(seconds);
     }
   }, [triggerPlay]);
 
@@ -93,19 +93,19 @@ const App2 = (props) => {
   }
 
   function pauseVideo() {
-    player.pauseVideo();
+    player?.pauseVideo?.();
   }
 
   function playVideo() {
-    player.playVideo();
+    player?.playVideo?.();
   }
 
   function seekTo(number) {
-    player.seekTo(number);
+    player?.seekTo?.(number);
   }
 
   function stopVideo() {
-    player.stopVideo();
+    player?.stopVideo?.();
   }
   function nextPart() {
     let index = info.data.parts.findIndex((f) => f === currentPart);
@@ -155,24 +155,26 @@ const App2 = (props) => {
             >
               {videoYoutubeId && (
                 <>
-                  {videoYoutubeId.includes("http") ?
+                  {videoYoutubeId.includes("drive.google.com") ?
                     <iframe src={videoYoutubeId} width="100%" height="100%" /> :
-                    <YouTube
-                      id="youtube-player"
-                      videoId={videoYoutubeId}
-                      onReady={onReady}
-                      onPlaybackQualityChange={onPlaybackQualityChange}
-                      onStateChange={onStateChange}
-                      onEnd={onEnd}
-                      opts={{
-                        playsinline: 1,
-                        autoplay: 1,
-                        playerVars: { fs: 0, autoplay: 1, controls: 1, playsinline: 1, },
-                      }}
-                      iframeClassName="iframe2"
-                      title=""
-                      style={{ width: "100%", height: "100%" }}
-                    />
+                    videoYoutubeId.includes("http") ?
+                      <video src={videoYoutubeId} width="100%" height="100%" controls /> :
+                      <YouTube
+                        id="youtube-player"
+                        videoId={videoYoutubeId}
+                        onReady={onReady}
+                        onPlaybackQualityChange={onPlaybackQualityChange}
+                        onStateChange={onStateChange}
+                        onEnd={onEnd}
+                        opts={{
+                          playsinline: 1,
+                          autoplay: 1,
+                          playerVars: { fs: 0, autoplay: 1, controls: 1, playsinline: 1, },
+                        }}
+                        iframeClassName="iframe2"
+                        title=""
+                        style={{ width: "100%", height: "100%" }}
+                      />
                   }
                   <Box style={{ background: "black", height: 38, position: "absolute", bottom: 0, right: 0, }} >
                     {!isFull && (
