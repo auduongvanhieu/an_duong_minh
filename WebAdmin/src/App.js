@@ -1,29 +1,21 @@
-import Header from './components/layout/Header'
-import './App.css'
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useSearchParams,
-  Navigate,
-  Outlet,
-} from 'react-router-dom'
-import Sidebar from './components/layout/Sidebar'
 import { Box } from '@material-ui/core'
-import Video from './pages/Videos/Video'
-import User from './pages/Users/User'
-import AccountInfo from './pages/AccontInfo'
-import AppProvider, { appContext } from './context'
-import Dashboard from './pages/Dashboard'
 import { useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import './App.css'
+import Header from './components/layout/Header'
+import Sidebar from './components/layout/Sidebar'
+import AppProvider from './context'
+import AccountInfo from './pages/AccontInfo'
+import Dashboard from './pages/Dashboard'
 import LoginForm from './pages/Login/Login'
+import User from './pages/Users/User'
+import Video from './pages/Videos/Video'
+import Media from './pages/Media/Media'
+
 const PrivateRouter = () => {
   const [isLogin, setIsLogin] = useState(undefined)
   useEffect(() => {
     let token = localStorage.getItem('token')
-    // if (!token && window.location.pathname !== "/login") {
-    //   window.location.assign("/login");
-    // }else
     if (token) {
       setIsLogin(true)
     } else {
@@ -52,6 +44,7 @@ const appRouter = () => [
   <Route path="user" element={<User />} />,
   <Route path="my-account" element={<AccountInfo />} />,
   <Route path="dashboard" element={<Dashboard />} />,
+  <Route path="media" element={<Media />} />,
 ]
 // sửa cái gì đó
 function App() {

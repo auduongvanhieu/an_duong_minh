@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import SubMenuList from '../SubMenuList';
-import Configurations from './Configurations';
+import Medias from './Medias';
 import styles from './Menulist.module.scss';
 import Users from './Users';
 import Videos from './Videos';
@@ -14,7 +14,7 @@ function Menulist() {
             <div className={cx('listItem')}>
                 <Videos />
                 <Users />
-                {/* <Configurations/> */}
+                <Medias />
                 <SubMenuList />
             </div>
         </div>
