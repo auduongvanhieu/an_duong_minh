@@ -160,7 +160,7 @@ const App2 = (props) => {
               {videoYoutubeId && (
                 <>
                   {videoYoutubeId.includes("drive.google.com") ?
-                    <iframe src={videoYoutubeId} width="100%" height="100%" /> :
+                    <iframe src={videoYoutubeId + "?t=" + seconds} width="100%" height="100%"/> :
                     videoYoutubeId.includes("http") ?
                       <video ref={videoPlayerRef} id="video-player" src={videoYoutubeId} width="100%" height="100%" controls onLoadedData={(e: any) => {
                         console.log('video loaded', e);
