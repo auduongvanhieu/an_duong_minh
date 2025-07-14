@@ -31,7 +31,7 @@ app.use(methodOverride('_method'))
 app.use(
 	bodyParser.urlencoded({
 		extended: false,
-		limit: '50mb',
+		limit: '100gb',
 	})
 )
 app.use(bodyParser.json())
