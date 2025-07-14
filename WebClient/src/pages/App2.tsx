@@ -86,7 +86,6 @@ const App2 = (props) => {
       player?.seekTo?.(seconds);
       if (videoPlayerRef.current) {
         videoPlayerRef.current.currentTime = seconds;
-        videoPlayerRef.current?.play?.();
       }
     }
   }, [triggerPlay]);
@@ -163,11 +162,10 @@ const App2 = (props) => {
                   {videoYoutubeId.includes("drive.google.com") ?
                     <iframe src={videoYoutubeId + "?t=" + seconds} width="100%" height="100%"/> :
                     videoYoutubeId.includes("http") ?
-                      <video ref={videoPlayerRef} id="video-player" src={videoYoutubeId} width="100%" height="100%" controls onLoadedData={(e: any) => {
+                      <video autoPlay={true} ref={videoPlayerRef} id="video-player" src={videoYoutubeId} width="100%" height="100%" controls onLoadedData={(e: any) => {
                         console.log('video loaded', e);
                         if (videoPlayerRef.current) {
                           videoPlayerRef.current.currentTime = seconds;
-                          // videoPlayerRef.current?.play?.();
                         }
                       }} /> :
                       <YouTube
