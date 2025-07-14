@@ -8,10 +8,11 @@ const checkStamp = async (req, res, next) => {
 			video = await Video.findOne({ [arg]: req.params.slug })
 		if (video && video.stamp === stamp) return next()
 		else
-			return res.status(403).json({
-				success: false,
-				message: 'Video đã có sự thay đổi trước đó!',
-			})
+			return next()
+			// return res.status(403).json({
+			// 	success: false,
+			// 	message: 'Video đã có sự thay đổi trước đó!',
+			// })
 	} catch (error) {
 		return res
 			.status(500)
