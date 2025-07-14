@@ -86,7 +86,7 @@ const App2 = (props) => {
       player?.seekTo?.(seconds);
       if (videoPlayerRef.current) {
         videoPlayerRef.current.currentTime = seconds;
-        videoPlayerRef.current.play();
+        videoPlayerRef.current?.play?.();
       }
     }
   }, [triggerPlay]);
@@ -167,7 +167,7 @@ const App2 = (props) => {
                         console.log('video loaded', e);
                         if (videoPlayerRef.current) {
                           videoPlayerRef.current.currentTime = seconds;
-                          videoPlayerRef.current.play();
+                          // videoPlayerRef.current?.play?.();
                         }
                       }} /> :
                       <YouTube
